@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var app = {
+/*var app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -34,6 +34,8 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+        
+        zebra.ready(init);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -46,4 +48,77 @@ var app = {
 
         console.log('Received Event: ' + id);
     }
+};*/
+
+var canvas = null;
+
+function init() {
+    //Create a stage by getting a reference to the canvas
+    stage = new createjs.Stage("gameCanvas");
+    //Create a Shape DisplayObject.
+    circle = new createjs.Shape();
+    circle.graphics.beginFill("red").drawRoundRect(0, 0, stage.canvas.width, stage.canvas.height, 50); // 100, 100, stage.canvas.width - 200, stage.canvas.height - 200);
+    //Add Shape instance to stage display list.
+    stage.addChild(circle);
+    //Update stage will render next frame
+    stage.update();
+    
+   /* var FocusMarkerComponent = zebra.Class(zebra.ui.Panel, [
+        function canHaveFocus() { return true; },
+        
+        function focused() {
+            this.$super();
+            this.repaint();
+        },
+        
+        function setMarkerColor(c) {
+            this.markerColor = c;
+            this.repaint();
+        },
+        
+        function paint(g) {
+            if(!this.hasFocus())
+                return;
+            
+            g.setColor(this.markerColor || "red");
+            g.rect(3,3, this.width-6, this.height-6);
+            g.stroke();
+        }
+    ]);
+    
+    canvas = new zebra.ui.zCanvas("gameCanvas");
+    
+    canvas.root.properties({
+        layout: new zebra.layout.BorderLayout,
+        kids: {
+            CENTER: new FocusMarkerComponent,
+            BOTTOM: new zebra.ui.Button("test")
+        }
+    });*/
+    
+    fScale();
+}
+
+// TODO: Fix
+fScale = function() {
+    var canvas = document.getElementById("gameCanvas");
+    
+    var w = $(window).width(),
+        h = $(window).height();
+    
+    var oldWidth = canvas.width;
+    var oldHeight = canvas.height;
+    
+    var widthRatio = w / oldWidth;
+    var heightRatio = h / oldHeight;
+    
+    console.log(widthRatio, heightRatio);
+    
+    var ratio = Math.min(widthRatio, heightRatio);
+    
+    var newWidth = oldWidth * ratio;
+    var newHeight = oldHeight * ratio;
+    
+    canvas.style.width = newWidth+'px';
+    canvas.style.height = newHeight+'px';
 };
